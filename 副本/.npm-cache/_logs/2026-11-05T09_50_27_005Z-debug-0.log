@@ -1,0 +1,66 @@
+0 verbose cli E:\node.js\node.exe E:\node.js\node_modules\npm\bin\npm-cli.js
+1 info using npm@11.20.0
+2 info using node@v26.13.0
+3 silly config load:file:E:\node.js\node_modules\npm\npmrc
+4 silly config load:file:E:\deepseek harness work\.npmrc
+5 silly config load:file:C:\Users\Lenovo\.npmrc
+6 silly config load:file:E:\node.js\node_global\etc\npmrc
+7 verbose title npm install three@0.170.0
+8 verbose argv "install" "three@0.170.0" "--cache" ".npm-cache"
+9 verbose logfile logs-max:10 dir:E:\deepseek harness work\.npm-cache\_logs\2026-11-05T09_50_27_005Z-
+10 verbose logfile E:\deepseek harness work\.npm-cache\_logs\2026-11-05T09_50_27_005Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:2248146944 maxSize:562036736 maxEntrySize:281018368
+13 silly idealTree buildDeps
+14 silly fetch manifest three@0.170.0
+15 silly packumentCache full:https://registry.npmmirror.com/three cache-miss
+16 http fetch GET 200 https://registry.npmmirror.com/npm 237ms
+17 http fetch GET 200 https://registry.npmmirror.com/three 229ms (cache miss)
+18 silly packumentCache full:https://registry.npmmirror.com/three set size:129379 disposed:false
+19 silly placeDep ROOT three@0.170.0 OK for: deepseek-harness-work@1.0.0 want: 0.170.0
+20 silly reify moves {}
+21 silly audit bulk request { three: [ '0.170.0' ] }
+22 http cache three@https://registry.npmmirror.com/three/-/three-0.170.0.tgz 0ms (cache hit)
+23 silly tarball no local data for three@https://registry.npmmirror.com/three/-/three-0.170.0.tgz. Extracting by manifest.
+24 http fetch POST 404 https://registry.npmmirror.com/-/npm/v1/security/advisories/bulk 34ms
+25 verbose audit error HttpErrorGeneral: 404 Not Found - POST https://registry.npmmirror.com/-/npm/v1/security/advisories/bulk - [NOT_IMPLEMENTED] /-/npm/v1/security/* not implemented yet
+25 verbose audit error     at E:\node.js\node_modules\npm\node_modules\npm-registry-fetch\lib\check-response.js:103:15
+25 verbose audit error     at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+25 verbose audit error     at async #getReport (E:\node.js\node_modules\npm\node_modules\@npmcli\arborist\lib\audit-report.js:334:19)
+25 verbose audit error     at async AuditReport.run (E:\node.js\node_modules\npm\node_modules\@npmcli\arborist\lib\audit-report.js:101:19) {
+25 verbose audit error   headers: [Object: null prototype] {
+25 verbose audit error     server: [ 'Tengine' ],
+25 verbose audit error     date: [ 'Thu, 05 Nov 2026 09:50:27 GMT' ],
+25 verbose audit error     'content-type': [ 'application/json' ],
+25 verbose audit error     'transfer-encoding': [ 'chunked' ],
+25 verbose audit error     connection: [ 'keep-alive' ],
+25 verbose audit error     'strict-transport-security': [ 'max-age=5184000' ],
+25 verbose audit error     via: [ 'kunlun6.cn9408[,404666]' ],
+25 verbose audit error     'timing-allow-origin': [ '*' ],
+25 verbose audit error     eagleid: [ '7b06c30b17938722277686779e' ],
+25 verbose audit error     'x-fetch-attempts': [ '1' ]
+25 verbose audit error   },
+25 verbose audit error   statusCode: 404,
+25 verbose audit error   code: 'E404',
+25 verbose audit error   method: 'POST',
+25 verbose audit error   uri: 'https://registry.npmmirror.com/-/npm/v1/security/advisories/bulk',
+25 verbose audit error   body: {
+25 verbose audit error     error: '[NOT_IMPLEMENTED] /-/npm/v1/security/* not implemented yet'
+25 verbose audit error   },
+25 verbose audit error   pkgid: undefined
+25 verbose audit error }
+26 silly audit error [object Object]
+27 silly audit report null
+28 http fetch GET 200 https://cdn.npmmirror.com/packages/three/0.170.0/three-0.170.0.tgz 20654ms (cache miss)
+29 silly ADD node_modules/three
+30 verbose cwd E:\deepseek harness work
+31 verbose os Windows_NT 10.0.22000
+32 verbose node v26.13.0
+33 verbose npm  v11.20.0
+34 notice
+34 notice New major version of npm available! 11.20.0 -> 12.2.2
+34 notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.2
+34 notice To update run: npm install -g npm@12.2.2
+34 notice  { force: true, Symbol(proc-log.meta): true }
+35 verbose exit 0
+36 info ok

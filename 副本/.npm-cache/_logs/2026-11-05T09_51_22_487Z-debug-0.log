@@ -1,0 +1,64 @@
+0 verbose cli E:\node.js\node.exe E:\node.js\node_modules\npm\bin\npm-cli.js
+1 info using npm@11.20.0
+2 info using node@v26.13.0
+3 silly config load:file:E:\node.js\node_modules\npm\npmrc
+4 silly config load:file:E:\deepseek harness work\.npmrc
+5 silly config load:file:C:\Users\Lenovo\.npmrc
+6 silly config load:file:E:\node.js\node_global\etc\npmrc
+7 verbose title npm install three@0.128.0
+8 verbose argv "install" "three@0.128.0" "--no-save" "--cache" ".npm-cache" "--ignore-scripts"
+9 verbose logfile logs-max:10 dir:E:\deepseek harness work\.npm-cache\_logs\2026-11-05T09_51_22_487Z-
+10 verbose logfile E:\deepseek harness work\.npm-cache\_logs\2026-11-05T09_51_22_487Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:2248146944 maxSize:562036736 maxEntrySize:281018368
+13 silly idealTree buildDeps
+14 silly fetch manifest three@0.128.0
+15 silly packumentCache full:https://registry.npmmirror.com/three cache-miss
+16 verbose shrinkwrap failed to load node_modules/.package-lock.json out of date, updated: node_modules
+17 http cache https://registry.npmmirror.com/three 124ms (cache hit)
+18 silly packumentCache full:https://registry.npmmirror.com/three set size:875369 disposed:false
+19 silly placeDep ROOT three@0.128.0 REPLACE for: deepseek-harness-work@1.0.0 want: 0.128.0
+20 silly reify mark retired [ 'E:\\deepseek harness work\\node_modules\\three' ]
+21 silly reify moves {
+21 silly reify   'E:\\deepseek harness work\\node_modules\\three': 'E:\\deepseek harness work\\node_modules\\.three-6uUWRyJL'
+21 silly reify }
+22 silly audit bulk request { three: [ '0.128.0' ] }
+23 http cache three@https://registry.npmmirror.com/three/-/three-0.128.0.tgz 0ms (cache hit)
+24 silly tarball no local data for three@https://registry.npmmirror.com/three/-/three-0.128.0.tgz. Extracting by manifest.
+25 http fetch POST 404 https://registry.npmmirror.com/-/npm/v1/security/advisories/bulk 276ms
+26 verbose audit error HttpErrorGeneral: 404 Not Found - POST https://registry.npmmirror.com/-/npm/v1/security/advisories/bulk - [NOT_IMPLEMENTED] /-/npm/v1/security/* not implemented yet
+26 verbose audit error     at E:\node.js\node_modules\npm\node_modules\npm-registry-fetch\lib\check-response.js:103:15
+26 verbose audit error     at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+26 verbose audit error     at async #getReport (E:\node.js\node_modules\npm\node_modules\@npmcli\arborist\lib\audit-report.js:334:19)
+26 verbose audit error     at async AuditReport.run (E:\node.js\node_modules\npm\node_modules\@npmcli\arborist\lib\audit-report.js:101:19) {
+26 verbose audit error   headers: [Object: null prototype] {
+26 verbose audit error     server: [ 'Tengine' ],
+26 verbose audit error     date: [ 'Thu, 05 Nov 2026 09:51:25 GMT' ],
+26 verbose audit error     'content-type': [ 'application/json' ],
+26 verbose audit error     'transfer-encoding': [ 'chunked' ],
+26 verbose audit error     connection: [ 'keep-alive' ],
+26 verbose audit error     'strict-transport-security': [ 'max-age=5184000' ],
+26 verbose audit error     via: [ 'kunlun5.cn5266[,404666]' ],
+26 verbose audit error     'timing-allow-origin': [ '*' ],
+26 verbose audit error     eagleid: [ '8ccff79917938722855728749e' ],
+26 verbose audit error     'x-fetch-attempts': [ '1' ]
+26 verbose audit error   },
+26 verbose audit error   statusCode: 404,
+26 verbose audit error   code: 'E404',
+26 verbose audit error   method: 'POST',
+26 verbose audit error   uri: 'https://registry.npmmirror.com/-/npm/v1/security/advisories/bulk',
+26 verbose audit error   body: {
+26 verbose audit error     error: '[NOT_IMPLEMENTED] /-/npm/v1/security/* not implemented yet'
+26 verbose audit error   },
+26 verbose audit error   pkgid: undefined
+26 verbose audit error }
+27 silly audit error [object Object]
+28 silly audit report null
+29 http fetch GET 200 https://cdn.npmmirror.com/packages/three/0.128.0/three-0.128.0.tgz 10325ms (cache miss)
+30 silly CHANGE node_modules/three
+31 verbose cwd E:\deepseek harness work
+32 verbose os Windows_NT 10.0.22000
+33 verbose node v26.13.0
+34 verbose npm  v11.20.0
+35 verbose exit 0
+36 info ok

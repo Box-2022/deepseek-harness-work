@@ -1,0 +1,252 @@
+0 verbose cli E:\node.js\node.exe E:\node.js\node_modules\npm\bin\npm-cli.js
+1 info using npm@11.20.0
+2 info using node@v26.13.0
+3 silly config load:file:E:\node.js\node_modules\npm\npmrc
+4 silly config load:file:E:\deepseek harness work\.npmrc
+5 silly config load:file:C:\Users\Lenovo\.npmrc
+6 silly config load:file:E:\node.js\node_global\etc\npmrc
+7 verbose title npm install esbuild@0.24.0
+8 verbose argv "install" "--save-dev" "esbuild@0.24.0" "--cache" ".npm-cache"
+9 verbose logfile logs-max:10 dir:E:\deepseek harness work\.npm-cache\_logs\2026-11-05T09_50_49_717Z-
+10 verbose logfile E:\deepseek harness work\.npm-cache\_logs\2026-11-05T09_50_49_717Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:2248146944 maxSize:562036736 maxEntrySize:281018368
+13 silly idealTree buildDeps
+14 silly fetch manifest esbuild@0.24.0
+15 silly packumentCache full:https://registry.npmmirror.com/esbuild cache-miss
+16 http fetch GET 200 https://registry.npmmirror.com/esbuild 439ms (cache miss)
+17 silly packumentCache full:https://registry.npmmirror.com/esbuild set size:216305 disposed:false
+18 silly placeDep ROOT esbuild@0.24.0 OK for: deepseek-harness-work@1.0.0 want: 0.24.0
+19 silly fetch manifest @esbuild/aix-ppc64@0.24.0
+20 silly packumentCache full:https://registry.npmmirror.com/@esbuild%2faix-ppc64 cache-miss
+21 silly fetch manifest @esbuild/android-arm@0.24.0
+22 silly packumentCache full:https://registry.npmmirror.com/@esbuild%2fandroid-arm cache-miss
+23 silly fetch manifest @esbuild/android-arm64@0.24.0
+24 silly packumentCache full:https://registry.npmmirror.com/@esbuild%2fandroid-arm64 cache-miss
+25 silly fetch manifest @esbuild/android-x64@0.24.0
+26 silly packumentCache full:https://registry.npmmirror.com/@esbuild%2fandroid-x64 cache-miss
+27 silly fetch manifest @esbuild/darwin-arm64@0.24.0
+28 silly packumentCache full:https://registry.npmmirror.com/@esbuild%2fdarwin-arm64 cache-miss
+29 silly fetch manifest @esbuild/darwin-x64@0.24.0
+30 silly packumentCache full:https://registry.npmmirror.com/@esbuild%2fdarwin-x64 cache-miss
+31 silly fetch manifest @esbuild/freebsd-arm64@0.24.0
+32 silly packumentCache full:https://registry.npmmirror.com/@esbuild%2ffreebsd-arm64 cache-miss
+33 http fetch GET 200 https://registry.npmmirror.com/@esbuild%2faix-ppc64 57ms (cache miss)
+34 silly packumentCache full:https://registry.npmmirror.com/@esbuild%2faix-ppc64 set size:16384 disposed:false
+35 silly fetch manifest @esbuild/freebsd-x64@0.24.0
+36 silly packumentCache full:https://registry.npmmirror.com/@esbuild%2ffreebsd-x64 cache-miss
+37 http fetch GET 200 https://registry.npmmirror.com/@esbuild%2ffreebsd-x64 120ms (cache miss)
+38 silly packumentCache full:https://registry.npmmirror.com/@esbuild%2ffreebsd-x64 set size:61069 disposed:false
+39 silly fetch manifest @esbuild/linux-arm@0.24.0
+40 silly packumentCache full:https://registry.npmmirror.com/@esbuild%2flinux-arm cache-miss
+41 http fetch GET 200 https://registry.npmmirror.com/@esbuild%2fandroid-arm 215ms (cache miss)
+42 silly packumentCache full:https://registry.npmmirror.com/@esbuild%2fandroid-arm set size:71055 disposed:false
+43 silly fetch manifest @esbuild/linux-arm64@0.24.0
+44 silly packumentCache full:https://registry.npmmirror.com/@esbuild%2flinux-arm64 cache-miss
+45 http fetch GET 200 https://registry.npmmirror.com/@esbuild%2ffreebsd-arm64 330ms (cache miss)
+46 silly packumentCache full:https://registry.npmmirror.com/@esbuild%2ffreebsd-arm64 set size:60684 disposed:false
+47 silly fetch manifest @esbuild/linux-ia32@0.24.0
+48 silly packumentCache full:https://registry.npmmirror.com/@esbuild%2flinux-ia32 cache-miss
+49 http fetch GET 200 https://registry.npmmirror.com/@esbuild%2fdarwin-x64 341ms (cache miss)
+50 silly packumentCache full:https://registry.npmmirror.com/@esbuild%2fdarwin-x64 set size:60819 disposed:false
+51 silly fetch manifest @esbuild/linux-loong64@0.24.0
+52 silly packumentCache full:https://registry.npmmirror.com/@esbuild%2flinux-loong64 cache-miss
+53 http fetch GET 200 https://registry.npmmirror.com/@esbuild%2fdarwin-arm64 357ms (cache miss)
+54 silly packumentCache full:https://registry.npmmirror.com/@esbuild%2fdarwin-arm64 set size:61122 disposed:false
+55 silly fetch manifest @esbuild/linux-mips64el@0.24.0
+56 silly packumentCache full:https://registry.npmmirror.com/@esbuild%2flinux-mips64el cache-miss
+57 http fetch GET 200 https://registry.npmmirror.com/@esbuild%2fandroid-arm64 391ms (cache miss)
+58 silly packumentCache full:https://registry.npmmirror.com/@esbuild%2fandroid-arm64 set size:61638 disposed:false
+59 silly fetch manifest @esbuild/linux-ppc64@0.24.0
+60 silly packumentCache full:https://registry.npmmirror.com/@esbuild%2flinux-ppc64 cache-miss
+61 http fetch GET 200 https://registry.npmmirror.com/@esbuild%2fandroid-x64 398ms (cache miss)
+62 silly packumentCache full:https://registry.npmmirror.com/@esbuild%2fandroid-x64 set size:60901 disposed:false
+63 silly fetch manifest @esbuild/linux-riscv64@0.24.0
+64 silly packumentCache full:https://registry.npmmirror.com/@esbuild%2flinux-riscv64 cache-miss
+65 http fetch GET 200 https://registry.npmmirror.com/@esbuild%2flinux-arm 279ms (cache miss)
+66 silly packumentCache full:https://registry.npmmirror.com/@esbuild%2flinux-arm set size:60364 disposed:false
+67 silly fetch manifest @esbuild/linux-s390x@0.24.0
+68 silly packumentCache full:https://registry.npmmirror.com/@esbuild%2flinux-s390x cache-miss
+69 http fetch GET 200 https://registry.npmmirror.com/@esbuild%2flinux-arm64 251ms (cache miss)
+70 silly packumentCache full:https://registry.npmmirror.com/@esbuild%2flinux-arm64 set size:60822 disposed:false
+71 silly fetch manifest @esbuild/linux-x64@0.24.0
+72 silly packumentCache full:https://registry.npmmirror.com/@esbuild%2flinux-x64 cache-miss
+73 http fetch GET 200 https://registry.npmmirror.com/@esbuild%2flinux-ia32 217ms (cache miss)
+74 silly packumentCache full:https://registry.npmmirror.com/@esbuild%2flinux-ia32 set size:60999 disposed:false
+75 silly fetch manifest @esbuild/netbsd-x64@0.24.0
+76 silly packumentCache full:https://registry.npmmirror.com/@esbuild%2fnetbsd-x64 cache-miss
+77 http fetch GET 200 https://registry.npmmirror.com/@esbuild%2flinux-loong64 239ms (cache miss)
+78 silly packumentCache full:https://registry.npmmirror.com/@esbuild%2flinux-loong64 set size:80397 disposed:false
+79 silly fetch manifest @esbuild/openbsd-arm64@0.24.0
+80 silly packumentCache full:https://registry.npmmirror.com/@esbuild%2fopenbsd-arm64 cache-miss
+81 http fetch GET 200 https://registry.npmmirror.com/@esbuild%2flinux-mips64el 242ms (cache miss)
+82 silly packumentCache full:https://registry.npmmirror.com/@esbuild%2flinux-mips64el set size:61034 disposed:false
+83 silly fetch manifest @esbuild/openbsd-x64@0.24.0
+84 silly packumentCache full:https://registry.npmmirror.com/@esbuild%2fopenbsd-x64 cache-miss
+85 http fetch GET 200 https://registry.npmmirror.com/@esbuild%2flinux-riscv64 218ms (cache miss)
+86 silly packumentCache full:https://registry.npmmirror.com/@esbuild%2flinux-riscv64 set size:60990 disposed:false
+87 silly fetch manifest @esbuild/sunos-x64@0.24.0
+88 silly packumentCache full:https://registry.npmmirror.com/@esbuild%2fsunos-x64 cache-miss
+89 http fetch GET 200 https://registry.npmmirror.com/@esbuild%2flinux-ppc64 244ms (cache miss)
+90 silly packumentCache full:https://registry.npmmirror.com/@esbuild%2flinux-ppc64 set size:60775 disposed:false
+91 silly fetch manifest @esbuild/win32-arm64@0.24.0
+92 silly packumentCache full:https://registry.npmmirror.com/@esbuild%2fwin32-arm64 cache-miss
+93 http fetch GET 200 https://registry.npmmirror.com/@esbuild%2flinux-x64 189ms (cache miss)
+94 silly packumentCache full:https://registry.npmmirror.com/@esbuild%2flinux-x64 set size:60807 disposed:false
+95 silly fetch manifest @esbuild/win32-ia32@0.24.0
+96 silly packumentCache full:https://registry.npmmirror.com/@esbuild%2fwin32-ia32 cache-miss
+97 http fetch GET 200 https://registry.npmmirror.com/@esbuild%2flinux-s390x 213ms (cache miss)
+98 silly packumentCache full:https://registry.npmmirror.com/@esbuild%2flinux-s390x set size:60989 disposed:false
+99 silly fetch manifest @esbuild/win32-x64@0.24.0
+100 silly packumentCache full:https://registry.npmmirror.com/@esbuild%2fwin32-x64 cache-miss
+101 http fetch GET 200 https://registry.npmmirror.com/@esbuild%2fopenbsd-arm64 125ms (cache miss)
+102 silly packumentCache full:https://registry.npmmirror.com/@esbuild%2fopenbsd-arm64 set size:11986 disposed:false
+103 http fetch GET 200 https://registry.npmmirror.com/@esbuild%2fnetbsd-x64 155ms (cache miss)
+104 silly packumentCache full:https://registry.npmmirror.com/@esbuild%2fnetbsd-x64 set size:60909 disposed:false
+105 http fetch GET 200 https://registry.npmmirror.com/@esbuild%2fopenbsd-x64 134ms (cache miss)
+106 silly packumentCache full:https://registry.npmmirror.com/@esbuild%2fopenbsd-x64 set size:61016 disposed:false
+107 http fetch GET 200 https://registry.npmmirror.com/@esbuild%2fsunos-x64 138ms (cache miss)
+108 silly packumentCache full:https://registry.npmmirror.com/@esbuild%2fsunos-x64 set size:60980 disposed:false
+109 http fetch GET 200 https://registry.npmmirror.com/@esbuild%2fwin32-ia32 108ms (cache miss)
+110 silly packumentCache full:https://registry.npmmirror.com/@esbuild%2fwin32-ia32 set size:61499 disposed:false
+111 http fetch GET 200 https://registry.npmmirror.com/@esbuild%2fwin32-arm64 142ms (cache miss)
+112 silly packumentCache full:https://registry.npmmirror.com/@esbuild%2fwin32-arm64 set size:60969 disposed:false
+113 http fetch GET 200 https://registry.npmmirror.com/@esbuild%2fwin32-x64 123ms (cache miss)
+114 silly packumentCache full:https://registry.npmmirror.com/@esbuild%2fwin32-x64 set size:60906 disposed:false
+115 silly placeDep ROOT @esbuild/aix-ppc64@0.24.0 OK for: esbuild@0.24.0 want: 0.24.0
+116 silly placeDep ROOT @esbuild/android-arm@0.24.0 OK for: esbuild@0.24.0 want: 0.24.0
+117 silly placeDep ROOT @esbuild/android-arm64@0.24.0 OK for: esbuild@0.24.0 want: 0.24.0
+118 silly placeDep ROOT @esbuild/android-x64@0.24.0 OK for: esbuild@0.24.0 want: 0.24.0
+119 silly placeDep ROOT @esbuild/darwin-arm64@0.24.0 OK for: esbuild@0.24.0 want: 0.24.0
+120 silly placeDep ROOT @esbuild/darwin-x64@0.24.0 OK for: esbuild@0.24.0 want: 0.24.0
+121 silly placeDep ROOT @esbuild/freebsd-arm64@0.24.0 OK for: esbuild@0.24.0 want: 0.24.0
+122 silly placeDep ROOT @esbuild/freebsd-x64@0.24.0 OK for: esbuild@0.24.0 want: 0.24.0
+123 silly placeDep ROOT @esbuild/linux-arm@0.24.0 OK for: esbuild@0.24.0 want: 0.24.0
+124 silly placeDep ROOT @esbuild/linux-arm64@0.24.0 OK for: esbuild@0.24.0 want: 0.24.0
+125 silly placeDep ROOT @esbuild/linux-ia32@0.24.0 OK for: esbuild@0.24.0 want: 0.24.0
+126 silly placeDep ROOT @esbuild/linux-loong64@0.24.0 OK for: esbuild@0.24.0 want: 0.24.0
+127 silly placeDep ROOT @esbuild/linux-mips64el@0.24.0 OK for: esbuild@0.24.0 want: 0.24.0
+128 silly placeDep ROOT @esbuild/linux-ppc64@0.24.0 OK for: esbuild@0.24.0 want: 0.24.0
+129 silly placeDep ROOT @esbuild/linux-riscv64@0.24.0 OK for: esbuild@0.24.0 want: 0.24.0
+130 silly placeDep ROOT @esbuild/linux-s390x@0.24.0 OK for: esbuild@0.24.0 want: 0.24.0
+131 silly placeDep ROOT @esbuild/linux-x64@0.24.0 OK for: esbuild@0.24.0 want: 0.24.0
+132 silly placeDep ROOT @esbuild/netbsd-x64@0.24.0 OK for: esbuild@0.24.0 want: 0.24.0
+133 silly placeDep ROOT @esbuild/openbsd-arm64@0.24.0 OK for: esbuild@0.24.0 want: 0.24.0
+134 silly placeDep ROOT @esbuild/openbsd-x64@0.24.0 OK for: esbuild@0.24.0 want: 0.24.0
+135 silly placeDep ROOT @esbuild/sunos-x64@0.24.0 OK for: esbuild@0.24.0 want: 0.24.0
+136 silly placeDep ROOT @esbuild/win32-arm64@0.24.0 OK for: esbuild@0.24.0 want: 0.24.0
+137 silly placeDep ROOT @esbuild/win32-ia32@0.24.0 OK for: esbuild@0.24.0 want: 0.24.0
+138 silly placeDep ROOT @esbuild/win32-x64@0.24.0 OK for: esbuild@0.24.0 want: 0.24.0
+139 silly reify moves {}
+140 silly audit bulk request {
+140 silly audit   three: [ '0.170.0' ],
+140 silly audit   esbuild: [ '0.24.0' ],
+140 silly audit   '@esbuild/aix-ppc64': [ '0.24.0' ],
+140 silly audit   '@esbuild/android-arm': [ '0.24.0' ],
+140 silly audit   '@esbuild/android-arm64': [ '0.24.0' ],
+140 silly audit   '@esbuild/android-x64': [ '0.24.0' ],
+140 silly audit   '@esbuild/darwin-arm64': [ '0.24.0' ],
+140 silly audit   '@esbuild/darwin-x64': [ '0.24.0' ],
+140 silly audit   '@esbuild/freebsd-arm64': [ '0.24.0' ],
+140 silly audit   '@esbuild/freebsd-x64': [ '0.24.0' ],
+140 silly audit   '@esbuild/linux-arm': [ '0.24.0' ],
+140 silly audit   '@esbuild/linux-arm64': [ '0.24.0' ],
+140 silly audit   '@esbuild/linux-ia32': [ '0.24.0' ],
+140 silly audit   '@esbuild/linux-loong64': [ '0.24.0' ],
+140 silly audit   '@esbuild/linux-mips64el': [ '0.24.0' ],
+140 silly audit   '@esbuild/linux-ppc64': [ '0.24.0' ],
+140 silly audit   '@esbuild/linux-riscv64': [ '0.24.0' ],
+140 silly audit   '@esbuild/linux-s390x': [ '0.24.0' ],
+140 silly audit   '@esbuild/linux-x64': [ '0.24.0' ],
+140 silly audit   '@esbuild/netbsd-x64': [ '0.24.0' ],
+140 silly audit   '@esbuild/openbsd-arm64': [ '0.24.0' ],
+140 silly audit   '@esbuild/openbsd-x64': [ '0.24.0' ],
+140 silly audit   '@esbuild/sunos-x64': [ '0.24.0' ],
+140 silly audit   '@esbuild/win32-arm64': [ '0.24.0' ],
+140 silly audit   '@esbuild/win32-ia32': [ '0.24.0' ],
+140 silly audit   '@esbuild/win32-x64': [ '0.24.0' ]
+140 silly audit }
+141 http cache esbuild@https://registry.npmmirror.com/esbuild/-/esbuild-0.24.0.tgz 0ms (cache hit)
+142 http cache @esbuild/win32-x64@https://registry.npmmirror.com/@esbuild/win32-x64/-/win32-x64-0.24.0.tgz 0ms (cache hit)
+143 silly tarball no local data for esbuild@https://registry.npmmirror.com/esbuild/-/esbuild-0.24.0.tgz. Extracting by manifest.
+144 silly tarball no local data for @esbuild/win32-x64@https://registry.npmmirror.com/@esbuild/win32-x64/-/win32-x64-0.24.0.tgz. Extracting by manifest.
+145 http fetch POST 404 https://registry.npmmirror.com/-/npm/v1/security/advisories/bulk 36ms
+146 verbose audit error HttpErrorGeneral: 404 Not Found - POST https://registry.npmmirror.com/-/npm/v1/security/advisories/bulk - [NOT_IMPLEMENTED] /-/npm/v1/security/* not implemented yet
+146 verbose audit error     at E:\node.js\node_modules\npm\node_modules\npm-registry-fetch\lib\check-response.js:103:15
+146 verbose audit error     at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+146 verbose audit error     at async #getReport (E:\node.js\node_modules\npm\node_modules\@npmcli\arborist\lib\audit-report.js:334:19)
+146 verbose audit error     at async AuditReport.run (E:\node.js\node_modules\npm\node_modules\@npmcli\arborist\lib\audit-report.js:101:19) {
+146 verbose audit error   headers: [Object: null prototype] {
+146 verbose audit error     server: [ 'Tengine' ],
+146 verbose audit error     date: [ 'Thu, 05 Nov 2026 09:50:52 GMT' ],
+146 verbose audit error     'content-type': [ 'application/json' ],
+146 verbose audit error     'transfer-encoding': [ 'chunked' ],
+146 verbose audit error     connection: [ 'keep-alive' ],
+146 verbose audit error     'strict-transport-security': [ 'max-age=5184000' ],
+146 verbose audit error     via: [ 'kunlun3.cn9408[,404666]' ],
+146 verbose audit error     'timing-allow-origin': [ '*' ],
+146 verbose audit error     eagleid: [ '7b06c30817938722528952149e' ],
+146 verbose audit error     'x-fetch-attempts': [ '1' ]
+146 verbose audit error   },
+146 verbose audit error   statusCode: 404,
+146 verbose audit error   code: 'E404',
+146 verbose audit error   method: 'POST',
+146 verbose audit error   uri: 'https://registry.npmmirror.com/-/npm/v1/security/advisories/bulk',
+146 verbose audit error   body: {
+146 verbose audit error     error: '[NOT_IMPLEMENTED] /-/npm/v1/security/* not implemented yet'
+146 verbose audit error   },
+146 verbose audit error   pkgid: undefined
+146 verbose audit error }
+147 silly audit error [object Object]
+148 silly audit report null
+149 http fetch GET 200 https://cdn.npmmirror.com/packages/esbuild/0.24.0/esbuild-0.24.0.tgz 215ms (cache miss)
+150 http fetch GET 200 https://cdn.npmmirror.com/packages/%40esbuild/win32-x64/0.24.0/win32-x64-0.24.0.tgz 732ms (cache miss)
+151 info run esbuild@0.24.0 postinstall node_modules/esbuild node install.js
+152 info run esbuild@0.24.0 postinstall { code: 'EPERM', signal: undefined }
+153 verbose stack Error: spawn EPERM
+153 verbose stack     at ChildProcess.spawn (node:internal/child_process:486:11)
+153 verbose stack     at spawn (node:child_process:860:9)
+153 verbose stack     at promiseSpawn (E:\node.js\node_modules\npm\node_modules\@npmcli\promise-spawn\lib\index.js:39:16)
+153 verbose stack     at spawnWithShell (E:\node.js\node_modules\npm\node_modules\@npmcli\promise-spawn\lib\index.js:124:10)
+153 verbose stack     at promiseSpawn (E:\node.js\node_modules\npm\node_modules\@npmcli\promise-spawn\lib\index.js:12:12)
+153 verbose stack     at runScriptPkg (E:\node.js\node_modules\npm\node_modules\@npmcli\run-script\lib\run-script-pkg.js:79:13)
+153 verbose stack     at runScript (E:\node.js\node_modules\npm\node_modules\@npmcli\run-script\lib\run-script.js:9:12)
+153 verbose stack     at E:\node.js\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\rebuild.js:348:17
+153 verbose stack     at run (E:\node.js\node_modules\npm\node_modules\promise-call-limit\dist\commonjs\index.js:67:22)
+153 verbose stack     at E:\node.js\node_modules\npm\node_modules\promise-call-limit\dist\commonjs\index.js:84:9
+154 error code EPERM
+155 error syscall spawn
+156 error errno -4048
+157 error Error: spawn EPERM
+157 error     at ChildProcess.spawn (node:internal/child_process:486:11)
+157 error     at spawn (node:child_process:860:9)
+157 error     at promiseSpawn (E:\node.js\node_modules\npm\node_modules\@npmcli\promise-spawn\lib\index.js:39:16)
+157 error     at spawnWithShell (E:\node.js\node_modules\npm\node_modules\@npmcli\promise-spawn\lib\index.js:124:10)
+157 error     at promiseSpawn (E:\node.js\node_modules\npm\node_modules\@npmcli\promise-spawn\lib\index.js:12:12)
+157 error     at runScriptPkg (E:\node.js\node_modules\npm\node_modules\@npmcli\run-script\lib\run-script-pkg.js:79:13)
+157 error     at runScript (E:\node.js\node_modules\npm\node_modules\@npmcli\run-script\lib\run-script.js:9:12)
+157 error     at E:\node.js\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\rebuild.js:348:17
+157 error     at run (E:\node.js\node_modules\npm\node_modules\promise-call-limit\dist\commonjs\index.js:67:22)
+157 error     at E:\node.js\node_modules\npm\node_modules\promise-call-limit\dist\commonjs\index.js:84:9 {
+157 error   errno: -4048,
+157 error   code: 'EPERM',
+157 error   syscall: 'spawn'
+157 error }
+158 error
+158 error The operation was rejected by your operating system.
+158 error It's possible that the file was already in use (by a text editor or antivirus), or that you lack permissions to access it.
+158 error
+158 error If you believe this might be a permissions issue, please double-check the permissions of the file and its containing directories, or try running the command again as root/Administrator.
+159 silly unfinished npm timer reify 1793872251745
+160 silly unfinished npm timer reify:build 1793872253975
+161 silly unfinished npm timer build 1793872253976
+162 silly unfinished npm timer build:deps 1793872253976
+163 silly unfinished npm timer build:run:postinstall 1793872254015
+164 silly unfinished npm timer build:run:postinstall:node_modules/esbuild 1793872254016
+165 verbose cwd E:\deepseek harness work
+166 verbose os Windows_NT 10.0.22000
+167 verbose node v26.13.0
+168 verbose npm  v11.20.0
+169 verbose exit -4048
+170 verbose code -4048
+171 error A complete log of this run can be found in: E:\deepseek harness work\.npm-cache\_logs\2026-11-05T09_50_49_717Z-debug-0.log
