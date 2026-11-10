@@ -276,14 +276,14 @@
         ctx.fillRect(x + 1, y + 1, cell - 2, cell - 2);
       }
     }
-    ctx.strokeStyle = 'rgba(170,151,122,0.38)';
-    ctx.lineWidth = 2;
+    ctx.strokeStyle = 'rgba(151,131,102,0.55)';
+    ctx.lineWidth = 2.5;
     for (let i = 0; i <= w; i += cell) {
       ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, h); ctx.stroke();
       ctx.beginPath(); ctx.moveTo(0, i); ctx.lineTo(w, i); ctx.stroke();
     }
     drawPaperNoise(ctx, w, h, 3200, 0.04);
-  }, { repeat: [3, 3] });
+  }, { repeat: [5, 5] });
 
   const tactileTex = makeTexture(256, 256, function (ctx, w, h) {
     ctx.fillStyle = '#d8b244';
@@ -1053,9 +1053,13 @@
       transparent: true,
       opacity: opacity === undefined ? 0.34 : opacity,
       depthWrite: false,
+      polygonOffset: true,
+      polygonOffsetFactor: -1,
+      polygonOffsetUnits: -6,
       toneMapped: false
     });
-    const mesh = addPlane(parent, w, h, mat, x, y === undefined ? 0.205 : y, z, {
+    const baseY = y === undefined ? 0.205 : y;
+    const mesh = addPlane(parent, w, h, mat, x, baseY + 0.022, z, {
       rot: [-Math.PI / 2, 0, 0],
       renderOrder: 1
     });
@@ -1070,6 +1074,9 @@
       transparent: true,
       opacity: opacity === undefined ? 0.28 : opacity,
       depthWrite: false,
+      polygonOffset: true,
+      polygonOffsetFactor: -2,
+      polygonOffsetUnits: -12,
       blending: THREE.AdditiveBlending,
       toneMapped: false
     });
@@ -1088,6 +1095,9 @@
       transparent: true,
       opacity: opacity === undefined ? 0.26 : opacity,
       depthWrite: false,
+      polygonOffset: true,
+      polygonOffsetFactor: -2,
+      polygonOffsetUnits: -12,
       blending: THREE.AdditiveBlending,
       toneMapped: false
     });
@@ -1403,6 +1413,7 @@
     ceiling: 3.04,
     top: 4.26
   };
+  const doorLeaves = [];
 
   function windowGlareTexture() {
     return makeTexture(512, 512, function (ctx, w, h) {
@@ -1577,16 +1588,25 @@
     addBox(g, 0.1, 2.35, 0.26, MAT.metalDark, 2.2, 1.54, 0.66);
     addBox(g, 0.1, 2.35, 0.26, MAT.metalDark, 4.23, 1.54, 0.66);
     // two glass leaves
-    addPlane(g, 0.99, 2.12, MAT.glass, 2.71, 1.52, 0.685, { renderOrder: 8 });
-    addPlane(g, 0.99, 2.12, MAT.glass, 3.71, 1.52, 0.685, { renderOrder: 8 });
-    addBox(g, 0.045, 2.15, 0.09, MAT.metal, 3.2, 1.52, 0.69);
-    addBox(g, 0.055, 1.0, 0.08, MAT.metal, 2.66, 1.28, 0.73);
-    addBox(g, 0.055, 1.0, 0.08, MAT.metal, 3.75, 1.28, 0.73);
+    const doorGlassLeft = addPlane(g, 0.99, 2.12, MAT.glass, 2.71, 1.52, 0.685, { renderOrder: 8 });
+    const doorGlassRight = addPlane(g, 0.99, 2.12, MAT.glass, 3.71, 1.52, 0.685, { renderOrder: 8 });
+    const doorCenterStile = addBox(g, 0.045, 2.15, 0.09, MAT.metal, 3.2, 1.52, 0.69);
+    const doorHandleLeft = addBox(g, 0.055, 1.0, 0.08, MAT.metal, 2.66, 1.28, 0.73);
+    const doorHandleRight = addBox(g, 0.055, 1.0, 0.08, MAT.metal, 3.75, 1.28, 0.73);
     addBox(g, 0.15, 0.28, 0.1, MAT.metalDark, 2.3, 2.45, 0.7);
     addBox(g, 0.045, 0.045, 0.02, MAT.orange, 2.36, 2.49, 0.77);
     // door bottom decals
-    addBox(g, 0.9, 0.2, 0.012, MAT.teal, 2.7, 0.67, 0.705);
-    addBox(g, 0.9, 0.2, 0.012, MAT.teal, 3.7, 0.67, 0.705);
+    const doorDecalLeft = addBox(g, 0.9, 0.2, 0.012, MAT.teal, 2.7, 0.67, 0.705);
+    const doorDecalRight = addBox(g, 0.9, 0.2, 0.012, MAT.teal, 3.7, 0.67, 0.705);
+    doorLeaves.push(
+      { mesh: doorGlassLeft, homeX: 2.71, dir: -1 },
+      { mesh: doorGlassRight, homeX: 3.71, dir: 1 },
+      { mesh: doorCenterStile, homeX: 3.2, dir: 1 },
+      { mesh: doorHandleLeft, homeX: 2.66, dir: -1 },
+      { mesh: doorHandleRight, homeX: 3.75, dir: 1 },
+      { mesh: doorDecalLeft, homeX: 2.7, dir: -1 },
+      { mesh: doorDecalRight, homeX: 3.7, dir: 1 }
+    );
 
     // entrance mat and step
     addBox(g, 2.4, 0.035, 1.08, MAT.metalDark, 3.2, 0.205, 1.2, { receive: true });
@@ -2039,7 +2059,7 @@
     // central double-sided gondola
     (function gondola() {
       const unit = new THREE.Group();
-      unit.position.set(-2.15, 0, -3.12);
+      unit.position.set(-1.70, 0, -2.77);
       addBox(unit, 5.3, 0.2, 0.9, MAT.tealDark, 0, FLOOR + 0.11, 0, { receive: true });
       addBox(unit, 5.2, 0.13, 0.8, MAT.cream, 0, FLOOR + 1.48, 0, { receive: true });
       addBox(unit, 5.05, 0.24, 0.08, MAT.teal, 0, FLOOR + 1.58, 0.37);
@@ -2054,13 +2074,18 @@
       // side panels
       addBox(unit, 0.1, 1.38, 0.86, MAT.teal, -2.62, FLOOR + 0.79, 0);
       addBox(unit, 0.1, 1.38, 0.86, MAT.teal, 2.62, FLOOR + 0.79, 0);
+      // endcap poster facing the entrance
+      addBox(unit, 0.03, 1.0, 0.66, MAT.creamDark, 2.68, FLOOR + 0.82, 0);
+      addTextSign(unit, 0.6, 0.9, posterTexture(0), 2.705, FLOOR + 0.82, 0, {
+        rot: [0, Math.PI / 2, 0]
+      });
       // products on both sides
       for (let si = 0; si < 3; si++) {
         const sy = FLOOR + shelfHeights[si] + 0.055;
         for (let side = -1; side <= 1; side += 2) {
-          const z = -3.12 + side * 0.24;
+          const z = -2.77 + side * 0.24;
           for (let j = 0; j < 24; j++) {
-            const x = -4.65 + j * 0.215 + rr(-0.012, 0.012);
+            const x = -4.20 + j * 0.215 + rr(-0.012, 0.012);
             const col = productPalette[(si * 5 + j + (side > 0 ? 3 : 0)) % productPalette.length];
             if (j % 4 === 0) {
               productBoxes.add(x, sy + 0.11, z, 0.14, 0.17, 0.12, col, rr(-0.08, 0.08));
@@ -2155,6 +2180,26 @@
         ctx.textBaseline = 'middle';
         ctx.fillText('アイスクリーム', w / 2, h / 2 + 2);
       }), 0, FLOOR + 0.55, 0.501);
+      addTextSign(unit, 0.72, 0.38, makeTexture(512, 300, function (ctx, w, h) {
+        ctx.fillStyle = '#f5ebdb';
+        ctx.fillRect(0, 0, w, h);
+        ctx.fillStyle = '#2a7274';
+        ctx.fillRect(0, 0, w, 74);
+        ctx.fillStyle = '#f7eedb';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.font = '900 37px "Yu Gothic", "Meiryo", sans-serif';
+        ctx.fillText('ICE CREAM', w / 2, 40);
+        ctx.fillStyle = '#c6783a';
+        ctx.font = '700 29px "Yu Gothic", sans-serif';
+        ctx.fillText('つめたい おやつ', w / 2, 145);
+        ctx.fillStyle = '#8b5b38';
+        ctx.font = '700 22px "Arial", sans-serif';
+        ctx.fillText('HOSHI MART', w / 2, 224);
+        ctx.strokeStyle = '#d6c8b2';
+        ctx.lineWidth = 4;
+        ctx.strokeRect(10, 10, w - 20, h - 20);
+      }), 1.09, FLOOR + 0.42, 0, { rot: [0, Math.PI / 2, 0] });
       addGlow(unit, 0xa9eaff, 1.5, 0, FLOOR + 0.7, 0, 0.06, { delay: 4.8 });
       g.add(unit);
       registerAssembly(unit, 4.0, { duration: 0.9, drop: 0.65, scaleFrom: 0.04 });
@@ -2225,10 +2270,13 @@
       addBox(unit, 0.28, 0.14, 0.07, MAT.metalDark, 2.35, FLOOR + 1.15, -4.25);
       addBox(unit, 0.23, 0.09, 0.01, MAT.coolGlow, 2.35, FLOOR + 1.15, -4.21);
 
+      // Move the counter a little toward the customer side to leave a usable
+      // staff aisle behind it while keeping the central aisle open.
+      unit.position.z = 0.15;
       g.add(unit);
       registerAssembly(unit, 4.32, { duration: 1.0, drop: 0.75, scaleFrom: 0.04 });
       addLight(new THREE.PointLight(0xffcc8c, 0.62, 7.5, 1.4), 5.3, 0.62)
-        .position.set(2.0, 2.45, -4.25);
+        .position.set(2.0, 2.45, -4.10);
       diorama.add(lightItems[lightItems.length - 1]);
     })();
 
@@ -2319,18 +2367,6 @@
       registerAssembly(unit, 4.85, { duration: 0.7, drop: 0.4, scaleFrom: 0.05 });
     })();
 
-    // freestanding promo board near the entrance
-    (function promo() {
-      const unit = new THREE.Group();
-      unit.position.set(1.55, 0, -0.55);
-      addBox(unit, 0.08, 1.5, 0.08, MAT.metalDark, -0.28, FLOOR + 0.75, 0);
-      addBox(unit, 0.08, 1.5, 0.08, MAT.metalDark, 0.28, FLOOR + 0.75, 0);
-      addTextSign(unit, 0.68, 0.98, posterTexture(2), 0, FLOOR + 1.12, 0.05);
-      addBox(unit, 0.74, 0.04, 0.1, MAT.teal, 0, FLOOR + 1.62, 0.0);
-      g.add(unit);
-      registerAssembly(unit, 4.95, { duration: 0.8, drop: 0.5, scaleFrom: 0.04 });
-    })();
-
     // interior posters and clock
     addTextSign(g, 0.68, 0.95, posterTexture(0), -5.82, 1.85, -4.3, { rot: [0, Math.PI / 2, 0] });
     addTextSign(g, 0.65, 0.9, posterTexture(4), -5.82, 1.8, -5.2, { rot: [0, Math.PI / 2, 0] });
@@ -2347,14 +2383,14 @@
         side: THREE.DoubleSide,
         toneMapped: false
       });
-      const mesh = addPlane(g, 2.0, 0.5, mat, x, 2.36, z);
+      const mesh = addPlane(g, 2.0, 0.5, mat, x, 2.55, z);
       mesh.renderOrder = 5;
-      addCylinder(g, 0.008, 0.008, 0.4, 4, MAT.metalDark, x - 0.75, 2.82, z);
-      addCylinder(g, 0.008, 0.008, 0.4, 4, MAT.metalDark, x + 0.75, 2.82, z);
+      addCylinder(g, 0.008, 0.008, 0.25, 4, MAT.metalDark, x - 0.75, 2.9, z);
+      addCylinder(g, 0.008, 0.008, 0.25, 4, MAT.metalDark, x + 0.75, 2.9, z);
     }
     hangSign('おにぎり・お弁当', 'RICE & BENTO', '#f3ead9', '#1d5e61', '#d79545', -3.2, -1.65, true);
     hangSign('ドリンク・お酒', 'DRINKS', '#1f6668', '#fff8e7', '#e5b366', -1.15, -1.9, true);
-    hangSign('ホットスナック', 'HOT SNACK', '#e9d9be', '#803d34', '#c47e3a', 2.7, -2.25, true);
+    hangSign('ホットスナック', 'HOT SNACK', '#e9d9be', '#803d34', '#c47e3a', 2.0, -3.15, true);
 
     // warm pendant lamps near the glass
     function pendant(x, z) {
@@ -2365,76 +2401,6 @@
     }
     pendant(-3.0, -0.85);
     pendant(0.85, -0.7);
-
-    // small endcap display just inside window B
-    (function endcap() {
-      const unit = new THREE.Group();
-      unit.position.set(1.05, 0, -1.05);
-      addBox(unit, 1.45, 0.12, 0.48, MAT.tealDark, 0, FLOOR + 0.06, 0, { receive: true });
-      addBox(unit, 0.1, 1.12, 0.5, MAT.teal, -0.7, FLOOR + 0.62, 0);
-      addBox(unit, 0.1, 1.12, 0.5, MAT.orange, 0.7, FLOOR + 0.62, 0);
-      addBox(unit, 1.35, 0.07, 0.48, MAT.cream, 0, FLOOR + 1.18, 0);
-      for (let s = 0; s < 3; s++) {
-        const sy = FLOOR + 0.38 + s * 0.28;
-        addBox(unit, 1.3, 0.035, 0.4, MAT.whiteBright, 0, sy, 0);
-        for (let j = 0; j < 6; j++) {
-          const px = 0.43 + j * 0.2;
-          const col = productPalette[(s * 4 + j + 5) % productPalette.length];
-          productBoxes.add(px, sy + 0.1, -1.05, 0.155, 0.17, 0.12, col, rr(-0.08, 0.08));
-        }
-      }
-      addTextSign(unit, 0.9, 0.22, makeTexture(512, 112, function (ctx, w, h) {
-        ctx.fillStyle = '#e2954a';
-        ctx.fillRect(0, 0, w, h);
-        ctx.fillStyle = '#2c2018';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.font = '900 50px "Yu Gothic", sans-serif';
-        ctx.fillText('NEW ITEMS', w / 2, h / 2 + 2);
-      }), 0, FLOOR + 1.33, 0.12);
-      g.add(unit);
-      registerAssembly(unit, 4.25, { duration: 0.75, drop: 0.45, scaleFrom: 0.04 });
-    })();
-
-    // illuminated hot-food menu hanging above the counter area
-    (function hotMenu() {
-      const unit = new THREE.Group();
-      unit.position.set(2.25, 0, -3.38);
-      addCylinder(unit, 0.008, 0.008, 0.32, 4, MAT.metalDark, -0.7, 2.79, 0);
-      addCylinder(unit, 0.008, 0.008, 0.32, 4, MAT.metalDark, 0.7, 2.79, 0);
-      addBox(unit, 1.7, 0.62, 0.06, MAT.metalDark, 0, 2.42, 0);
-      addTextSign(unit, 1.6, 0.53, makeTexture(1024, 384, function (ctx, w, h) {
-        ctx.fillStyle = '#e39b4b';
-        ctx.fillRect(0, 0, w, h);
-        ctx.fillStyle = '#fff6e1';
-        ctx.fillRect(10, 10, w - 20, h - 20);
-        ctx.fillStyle = '#b55236';
-        ctx.font = '900 58px "Yu Gothic", "Meiryo", sans-serif';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText('ほかほか ホットスナック', w / 2, 72);
-        ctx.fillStyle = '#c98539';
-        ctx.font = '700 30px "Yu Gothic", "Meiryo", sans-serif';
-        ctx.fillText('からあげ  ·  肉まん  ·  コーヒー', w / 2, 132);
-        ctx.fillStyle = '#7a4c2c';
-        for (let i = 0; i < 3; i++) {
-          ctx.beginPath();
-          ctx.arc(300 + i * 210, 230, 58, 0, Math.PI * 2);
-          ctx.fill();
-          ctx.fillStyle = i === 1 ? '#e0a64e' : '#9a532c';
-          ctx.beginPath();
-          ctx.arc(300 + i * 210, 220, 42, 0, Math.PI * 2);
-          ctx.fill();
-          ctx.fillStyle = '#7a4c2c';
-        }
-        ctx.fillStyle = '#2e655f';
-        ctx.font = '700 26px "Yu Gothic", sans-serif';
-        ctx.fillText('HOSHI MART  KITCHEN', w / 2, h - 42);
-      }), 0, 2.42, 0.04);
-      addGlow(unit, 0xffb35e, 1.4, 0, 2.4, 0.1, 0.13, { delay: 5.7 });
-      g.add(unit);
-      registerAssembly(unit, 4.7, { duration: 0.75, drop: 0.4, scaleFrom: 0.04 });
-    })();
 
     // small promo cards clipped to the fridge glass
     for (let i = 0; i < 5; i++) {
@@ -2620,7 +2586,7 @@
       addBox(unit, 0.08, 0.18, 0.82, MAT.metalDark, 0.47, WALK_Y + 1.74, 0);
       addBox(unit, 0.09, 0.08, 0.17, MAT.metal, 0.52, WALK_Y + 0.95, 0.26);
       addGlow(unit, glowColors[i], 2.1, 0.72, WALK_Y + 1.0, 0, 0.22, { delay: 6.2 + i * 0.1 });
-      addGroundGlow(unit, glowColors[i], 2.8, 2.8, 1.35, 0, 0.2, WALK_Y + 0.02);
+      addGroundGlow(unit, glowColors[i], 2.8, 2.8, 1.35, 0, 0.2, WALK_Y + 0.06);
       addContactShadow(unit, 1.35, 1.25, 0.04, 0, 0.35, WALK_Y + 0.012);
       g.add(unit);
       registerAssembly(unit, 5.82 + i * 0.08, { duration: 0.85, drop: 0.8, scaleFrom: 0.04 });
@@ -2659,7 +2625,7 @@
     addBox(g, 1.9, 0.1, 0.34, MAT.metalDark, 0, WALK_Y + 2.2, 0);
     addGlow(g, 0x8fe8e0, 2.4, 0.25, WALK_Y + 4.0, 0.3, 0.14, { delay: 6.8 });
     addGlow(g, 0xffb46f, 1.7, 0.0, WALK_Y + 2.7, 0.3, 0.08, { delay: 6.8 });
-    addGroundGlow(g, 0x6fd8d2, 2.8, 3.2, 0, 0.8, 0.1, WALK_Y + 0.02);
+    addGroundGlow(g, 0x6fd8d2, 2.8, 3.2, 0, 0.8, 0.1, WALK_Y + 0.06);
     addContactShadow(g, 1.35, 1.35, 0, 0, 0.36, WALK_Y + 0.012);
     const pl = new THREE.PointLight(0x7fd9d3, 0.5, 5.5, 1.5);
     pl.position.set(5.82, 3.9, 5.5);
@@ -2690,7 +2656,7 @@
     addBox(g, 0.38, 0.035, 0.24, MAT.warmGlow, 0, 5.87, 1.4);
     addGlow(g, 0xffcb8b, 4.0, 0, 5.85, 1.42, 0.4, { delay: 6.4 });
     addGlow(g, 0xffc27b, 8.0, 0, 5.7, 1.45, 0.12, { delay: 6.45 });
-    addGroundGlow(g, 0xffb875, 8.4, 7.2, 0, 1.5, 0.28, WALK_Y + 0.015);
+    addGroundGlow(g, 0xffb875, 8.4, 7.2, 0, 1.5, 0.28, WALK_Y + 0.04);
     addContactShadow(g, 1.2, 1.2, 0, 0, 0.35, WALK_Y + 0.012);
     // small banner plate
     addBox(g, 0.24, 0.66, 0.04, MAT.teal, 0.17, 3.3, 0.0);
@@ -2742,7 +2708,7 @@
     addBox(p1, 0.4, 0.1, 0.03, MAT.orange, 0, WALK_Y + 1.85, 0.18);
     addBox(p1, 0.4, 0.1, 0.03, MAT.orange, 0, WALK_Y + 2.75, 0.18);
     addBox(p1, 0.36, 0.35, 0.025, MAT.white, 0, WALK_Y + 2.3, 0.19);
-    addGroundGlow(p1, 0xffc27e, 2.4, 2.4, 0, 0, 0.09, WALK_Y + 0.015);
+    addGroundGlow(p1, 0xffc27e, 2.4, 2.4, 0, 0, 0.09, WALK_Y + 0.04);
     addContactShadow(p1, 1.4, 1.4, 0, 0, 0.3, WALK_Y + 0.012);
     g.add(p1);
     registerAssembly(p1, 6.25, { duration: 1.2, drop: 1.4, scaleFrom: 0.03 });
@@ -2922,7 +2888,7 @@
     addBox(g, 0.25, 0.12, 0.18, MAT.metalDark, -6.12, 2.35, -0.85);
     addCylinder(g, 0.09, 0.09, 0.05, 8, MAT.warmGlow, -6.0, 2.29, -0.85, { rot: [0, 0, Math.PI / 2] });
     addGlow(g, 0xffc47f, 1.45, -5.95, 2.22, -0.82, 0.25, { delay: 7.0 });
-    addGroundGlow(g, 0xffb06b, 2.6, 2.0, -6.35, -0.8, 0.12, 0.195);
+    addGroundGlow(g, 0xffb06b, 2.6, 2.0, -6.35, -0.8, 0.12, 0.22);
     // no-entry sign
     addBox(g, 0.26, 0.36, 0.03, MAT.white, -6.11, 1.65, -2.0, { rot: [0, Math.PI / 2, 0] });
     addBox(g, 0.18, 0.04, 0.04, MAT.orange, -6.09, 1.7, -2.0, { rot: [0, Math.PI / 2, 0] });
@@ -3278,7 +3244,7 @@
       });
     });
     addContactShadow(g, 3.0, 3.0, 0, 0, 0.38, WALK_Y + 0.012);
-    addGroundGlow(g, 0x3f8c79, 2.6, 2.6, 0, 0, 0.05, WALK_Y + 0.02);
+    addGroundGlow(g, 0x3f8c79, 2.6, 2.6, 0, 0, 0.05, WALK_Y + 0.04);
     diorama.add(g);
     registerAssembly(g, 5.8, { duration: 1.0, drop: 1.0, scaleFrom: 0.04 });
     return g;
@@ -3353,40 +3319,40 @@
     wet.name = 'wet-reflections';
     diorama.add(wet);
     // neon / interior light smeared across the wet pavement
-    addReflectionStreak(wet, 0xffa65b, 2.3, 5.4, -3.55, 3.6, 0.7, 0.03, 0.222);
-    addReflectionStreak(wet, 0xffc078, 1.8, 4.6, -1.3, 3.8, 0.56, -0.04, 0.222);
-    addReflectionStreak(wet, 0x63e0d5, 1.9, 5.0, -5.55, 3.8, 0.42, 0.05, 0.222);
-    addReflectionStreak(wet, 0xff9a4f, 1.7, 4.4, 2.55, 3.7, 0.55, 0.02, 0.222);
-    addReflectionStreak(wet, 0xff816a, 1.9, 5.2, 5.55, -2.0, 0.45, -0.02, 0.222);
-    addReflectionStreak(wet, 0x5fe5ff, 1.6, 4.2, 6.0, -4.3, 0.36, 0.02, 0.222);
-    addReflectionStreak(wet, 0xffc17b, 1.55, 5.7, -6.55, 8.4, 0.4, 0, 0.064);
-    addReflectionStreak(wet, 0x9ae8df, 1.1, 4.3, -6.2, 8.3, 0.16, 0.05, 0.064);
-    addReflectionStreak(wet, 0x86a4c1, 0.34, 7.0, -3.8, 8.8, 0.1, 0.02, 0.064);
-    addReflectionStreak(wet, 0x86a4c1, 0.3, 5.0, 8.8, -1.8, 0.09, Math.PI / 2, 0.064);
-    addReflectionStreak(wet, 0xd9e8e5, 2.4, 2.2, 3.8, 8.6, 0.07, 0, 0.064);
-    addReflectionStreak(wet, 0xcce6f4, 0.28, 3.6, 2.9, 8.65, 0.18, 0, 0.068);
-    addReflectionStreak(wet, 0xb9d9ea, 0.18, 3.2, 4.6, 8.7, 0.14, 0, 0.068);
-    addGroundGlow(wet, 0xbcd9e9, 6.8, 2.2, 3.9, 8.8, 0.08, 0.071);
+    addReflectionStreak(wet, 0xffa65b, 2.3, 5.4, -3.55, 3.6, 0.7, 0.03, 0.238);
+    addReflectionStreak(wet, 0xffc078, 1.8, 4.6, -1.3, 3.8, 0.56, -0.04, 0.238);
+    addReflectionStreak(wet, 0x63e0d5, 1.9, 5.0, -5.55, 3.8, 0.42, 0.05, 0.238);
+    addReflectionStreak(wet, 0xff9a4f, 1.7, 4.4, 2.55, 3.7, 0.55, 0.02, 0.238);
+    addReflectionStreak(wet, 0xff816a, 1.9, 5.2, 5.55, -2.0, 0.45, -0.02, 0.238);
+    addReflectionStreak(wet, 0x5fe5ff, 1.6, 4.2, 6.0, -4.3, 0.36, 0.02, 0.238);
+    addReflectionStreak(wet, 0xffc17b, 1.55, 5.7, -6.55, 8.4, 0.4, 0, 0.076);
+    addReflectionStreak(wet, 0x9ae8df, 1.1, 4.3, -6.2, 8.3, 0.16, 0.05, 0.076);
+    addReflectionStreak(wet, 0x86a4c1, 0.34, 7.0, -3.8, 8.8, 0.1, 0.02, 0.076);
+    addReflectionStreak(wet, 0x86a4c1, 0.3, 5.0, 8.8, -1.8, 0.09, Math.PI / 2, 0.076);
+    addReflectionStreak(wet, 0xd9e8e5, 2.4, 2.2, 3.8, 8.6, 0.07, 0, 0.076);
+    addReflectionStreak(wet, 0xcce6f4, 0.28, 3.6, 2.9, 8.65, 0.18, 0, 0.080);
+    addReflectionStreak(wet, 0xb9d9ea, 0.18, 3.2, 4.6, 8.7, 0.14, 0, 0.080);
+    addGroundGlow(wet, 0xbcd9e9, 6.8, 2.2, 3.9, 8.8, 0.08, 0.083);
 
-    addGroundGlow(wet, 0xffa962, 6.6, 4.6, -2.3, 2.9, 0.34, 0.224);
-    addGroundGlow(wet, 0xffbd7d, 11.0, 5.2, -1.0, 2.5, 0.25, 0.224);
-    addGroundGlow(wet, 0xff9d57, 5.8, 4.2, 2.6, 2.3, 0.3, 0.224);
-    addGroundGlow(wet, 0x66d9cf, 3.6, 3.4, -5.2, 3.1, 0.2, 0.224);
-    addGroundGlow(wet, 0xffb978, 6.4, 6.2, -6.55, 7.35, 0.18, 0.065);
+    addGroundGlow(wet, 0xffa962, 6.6, 4.6, -2.3, 2.9, 0.34, 0.240);
+    addGroundGlow(wet, 0xffbd7d, 11.0, 5.2, -1.0, 2.5, 0.25, 0.240);
+    addGroundGlow(wet, 0xff9d57, 5.8, 4.2, 2.6, 2.3, 0.3, 0.240);
+    addGroundGlow(wet, 0x66d9cf, 3.6, 3.4, -5.2, 3.1, 0.2, 0.240);
+    addGroundGlow(wet, 0xffb978, 6.4, 6.2, -6.55, 7.35, 0.18, 0.077);
 
     // puddle glints
     function puddleGlint(x, z, color, w, d, opacity, y) {
-      addGroundGlow(wet, color, w, d, x, z, opacity, y || 0.224);
+      addGroundGlow(wet, color, w, d, x, z, opacity, y || 0.240);
     }
-    puddleGlint(-1.2, 7.75, 0xa9d8ef, 2.2, 1.3, 0.2, 0.068);
-    puddleGlint(4.9, 9.4, 0xffbf7d, 1.9, 1.0, 0.16, 0.068);
-    puddleGlint(7.9, 3.2, 0x6bd7e5, 1.7, 0.95, 0.16, 0.068);
-    puddleGlint(-7.7, 5.15, 0xa9d8ef, 1.3, 0.7, 0.14, 0.224);
-    puddleGlint(4.4, 5.35, 0xffb477, 1.4, 0.75, 0.22, 0.224);
+    puddleGlint(-1.2, 7.75, 0xa9d8ef, 2.2, 1.3, 0.2, 0.080);
+    puddleGlint(4.9, 9.4, 0xffbf7d, 1.9, 1.0, 0.16, 0.080);
+    puddleGlint(7.9, 3.2, 0x6bd7e5, 1.7, 0.95, 0.16, 0.080);
+    puddleGlint(-7.7, 5.15, 0xa9d8ef, 1.3, 0.7, 0.14, 0.240);
+    puddleGlint(4.4, 5.35, 0xffb477, 1.4, 0.75, 0.22, 0.240);
 
     // long wet glints along the curb
-    addReflectionStreak(wet, 0xc7e4f3, 0.16, 6.8, -0.4, 6.42, 0.1, 0, 0.202);
-    addReflectionStreak(wet, 0xc7e4f3, 0.14, 4.8, 6.42, -0.8, 0.08, Math.PI / 2, 0.202);
+    addReflectionStreak(wet, 0xc7e4f3, 0.16, 6.8, -0.4, 6.42, 0.1, 0, 0.218);
+    addReflectionStreak(wet, 0xc7e4f3, 0.14, 4.8, 6.42, -0.8, 0.08, Math.PI / 2, 0.218);
 
     // rain streaks
     const count = COARSE_POINTER ? 980 : 1450;
@@ -3672,8 +3638,8 @@
     addBox(g, 0.18, 0.3, 0.04, MAT.white, 10.0, 0.65, -10.22);
 
     // subtle cold spill on the service strip
-    addGroundGlow(g, 0x507f8d, 5.0, 2.0, -1.6, -7.3, 0.08, 0.198);
-    addGroundGlow(g, 0xffb66f, 2.2, 1.6, -2.05, -6.8, 0.12, 0.2);
+    addGroundGlow(g, 0x507f8d, 5.0, 2.0, -1.6, -7.3, 0.08, 0.23);
+    addGroundGlow(g, 0xffb66f, 2.2, 1.6, -2.05, -6.8, 0.12, 0.23);
 
     const rearLight = new THREE.PointLight(0xffb875, 0.22, 3.6, 1.5);
     rearLight.position.set(-2.05, 2.22, -6.98);
@@ -3763,12 +3729,14 @@
 
     for (let i = 0; i < lightItems.length; i++) {
       const l = lightItems[i];
-      const t = clamp((e - l.userData.asmDelay) / 0.55, 0, 1);
-      let flicker = 1;
-      if (t > 0 && t < 1) {
-        flicker = 0.55 + 0.45 * Math.abs(Math.sin(e * 41 + i * 2.1));
+      const t = clamp((e - l.userData.asmDelay) / 1.0, 0, 1);
+      if (t <= 0) {
+        l.intensity = 0;
+      } else if (t >= 1) {
+        l.intensity = l.userData.baseIntensity;
+      } else {
+        l.intensity = l.userData.baseIntensity * easeInOutCubic(t);
       }
-      l.intensity = l.userData.baseIntensity * easeOutCubic(t) * flicker;
     }
 
     for (let i = 0; i < glowSprites.length; i++) {
@@ -3807,8 +3775,320 @@
     }
   }
 
+  /* ------------------------------------------------------------
+     First-person store visit
+     ------------------------------------------------------------ */
+  const FP_START = new THREE.Vector3(3.15, 1.86, 2.72);
+  const FP_END = new THREE.Vector3(2.82, 1.95, -1.10);
+  const FP_LOOK_START = new THREE.Vector3(3.05, 1.46, -1.15);
+  const FP_LOOK_END = new THREE.Vector3(-1.25, 1.40, -4.85);
+  const FP_EYE = 1.95;
+  const FP_BOUNDS = { x0: -5.55, x1: 4.08, z0: -5.55, z1: 0.42 };
+  const FP_OBSTACLES = [
+    { x0: -4.38, x1: 0.98, z0: -3.26, z1: -2.30 }, // central gondola
+    { x0: -2.18, x1: 0.08, z0: -1.70, z1: -0.60 }, // ice cream freezer
+    { x0: -6.02, x1: -3.46, z0: -1.52, z1: -0.82 }, // magazine rack
+    { x0: 0.85, x1: 3.84, z0: -4.90, z1: -4.06 }, // counter (shifted forward)
+    { x0: 3.30, x1: 4.04, z0: -4.55, z1: -2.23 }, // counter return
+    { x0: 3.66, x1: 4.34, z0: -1.66, z1: -0.94 }, // ATM
+    { x0: 3.72, x1: 4.28, z0: -0.42, z1: 0.02 }, // baskets
+    { x0: -5.78, x1: -5.26, z0: -4.72, z1: -2.38 }, // left shelving
+    { x0: -5.70, x1: 0.70, z0: -6.20, z1: -5.62 } // refrigerated display bank
+  ];
+
+  const fpState = {
+    phase: 'off',
+    time: 0,
+    entryStartMs: 0,
+    pos: new THREE.Vector3(),
+    yaw: 0,
+    pitch: 0,
+    savedPos: new THREE.Vector3(),
+    savedTarget: new THREE.Vector3(),
+    savedFov: 34,
+    keys: Object.create(null),
+    bobPhase: 0,
+    bobAmp: 0,
+    dragging: false,
+    lastX: 0,
+    lastY: 0,
+    hadLock: false,
+    exiting: false
+  };
+
+  let doorProgress = 0;
+  let doorTarget = 0;
+
+  function getPointerLockElement() {
+    return document.pointerLockElement || document.webkitPointerLockElement || null;
+  }
+
+  function requestPointerLockSafe() {
+    const el = renderer.domElement;
+    try {
+      const res = el.requestPointerLock && el.requestPointerLock();
+      if (res && res.catch) res.catch(function () {});
+    } catch (err) { /* drag-look fallback */ }
+  }
+
+  function applyFpRotation() {
+    camera.rotation.order = 'YXZ';
+    camera.rotation.x = fpState.pitch;
+    camera.rotation.y = fpState.yaw;
+    camera.rotation.z = 0;
+  }
+
+  function setFpLookFromTarget(target) {
+    const dir = target.clone().sub(fpState.pos);
+    if (dir.lengthSq() < 0.0001) return;
+    dir.normalize();
+    fpState.yaw = Math.atan2(-dir.x, -dir.z);
+    fpState.pitch = Math.asin(clamp(dir.y, -1, 1));
+  }
+
+  function updateDoorMeshes() {
+    for (let i = 0; i < doorLeaves.length; i++) {
+      const leaf = doorLeaves[i];
+      leaf.mesh.position.x = leaf.homeX + leaf.dir * doorProgress * 0.86;
+    }
+  }
+
+  function updateDoors(dt) {
+    doorProgress += (doorTarget - doorProgress) * Math.min(1, dt * 6.5);
+    if (Math.abs(doorTarget - doorProgress) < 0.0005) doorProgress = doorTarget;
+    updateDoorMeshes();
+  }
+
+  function finalizeIntroForFirstPerson() {
+    if (SKIP_INTRO) return;
+    if (intro.elapsed < intro.duration || !intro.cameraDone) {
+      intro.elapsed = intro.duration + 0.6;
+      intro.cameraDone = true;
+      updateAssembly(0);
+      camera.position.copy(HERO_POS);
+      controls.target.copy(HERO_TARGET);
+      controls.update();
+    }
+  }
+
+  function enterFirstPerson(instant) {
+    if (fpState.phase !== 'off') return;
+    finalizeIntroForFirstPerson();
+    fpState.savedPos.copy(camera.position);
+    fpState.savedTarget.copy(controls.target);
+    fpState.savedFov = camera.fov;
+    controls.enabled = false;
+    doorTarget = 1;
+    fpState.phase = instant ? 'free' : 'entering';
+    fpState.time = 0;
+    fpState.keys = Object.create(null);
+    fpState.bobPhase = 0;
+    fpState.bobAmp = 0;
+    fpState.hadLock = false;
+    fpState.exiting = false;
+    camera.rotation.order = 'YXZ';
+
+    if (instant) {
+      doorProgress = 1;
+      updateDoorMeshes();
+      fpState.pos.copy(FP_END);
+      setFpLookFromTarget(FP_LOOK_END);
+      camera.position.copy(fpState.pos);
+      camera.fov = 63;
+      camera.updateProjectionMatrix();
+      applyFpRotation();
+    } else {
+      fpState.entryStartMs = performance.now();
+      camera.fov = 55;
+      camera.updateProjectionMatrix();
+      camera.position.copy(FP_START);
+      fpState.pos.copy(FP_START);
+      const startDir = FP_LOOK_START.clone().sub(FP_START).normalize();
+      fpState.yaw = Math.atan2(-startDir.x, -startDir.z);
+      fpState.pitch = Math.asin(clamp(startDir.y, -1, 1));
+      applyFpRotation();
+      requestPointerLockSafe();
+    }
+  }
+
+  function exitFirstPerson() {
+    if (fpState.phase === 'off') return;
+    fpState.exiting = true;
+    const wasLocked = getPointerLockElement() === renderer.domElement;
+    fpState.phase = 'off';
+    fpState.keys = Object.create(null);
+    fpState.dragging = false;
+    doorTarget = 0;
+    if (wasLocked && document.exitPointerLock) {
+      try { document.exitPointerLock(); } catch (err) {}
+    }
+    camera.fov = fpState.savedFov;
+    camera.updateProjectionMatrix();
+    camera.rotation.order = 'YXZ';
+    camera.position.copy(fpState.savedPos);
+    controls.target.copy(fpState.savedTarget);
+    controls.enabled = true;
+    controls.update();
+    setTimeout(function () { fpState.exiting = false; }, 0);
+  }
+
+  function fpCollides(x, z) {
+    const r = 0.16;
+    if (x < FP_BOUNDS.x0 + r || x > FP_BOUNDS.x1 - r || z < FP_BOUNDS.z0 + r || z > FP_BOUNDS.z1 - r) {
+      return true;
+    }
+    for (let i = 0; i < FP_OBSTACLES.length; i++) {
+      const o = FP_OBSTACLES[i];
+      if (x > o.x0 - r && x < o.x1 + r && z > o.z0 - r && z < o.z1 + r) return true;
+    }
+    return false;
+  }
+
+  function updateFirstPerson(dt) {
+    if (fpState.phase === 'entering') {
+      fpState.time = (performance.now() - fpState.entryStartMs) / 1000;
+      const t = clamp(fpState.time / 2.9, 0, 1);
+      const k = easeInOutCubic(t);
+      camera.position.lerpVectors(FP_START, FP_END, k);
+      camera.position.y += Math.sin(k * Math.PI * 7.5) * 0.012;
+      const look = FP_LOOK_START.clone().lerp(FP_LOOK_END, k);
+      camera.lookAt(look);
+      camera.fov = lerp(55, 63, k);
+      camera.updateProjectionMatrix();
+      if (t >= 1) {
+        fpState.phase = 'free';
+        fpState.pos.copy(FP_END);
+        fpState.pos.y = FP_EYE;
+        setFpLookFromTarget(FP_LOOK_END);
+        camera.position.copy(fpState.pos);
+        applyFpRotation();
+      }
+      return;
+    }
+
+    if (fpState.phase !== 'free') return;
+
+    let ix = 0;
+    let iz = 0;
+    if (fpState.keys.KeyW || fpState.keys.ArrowUp) iz += 1;
+    if (fpState.keys.KeyS || fpState.keys.ArrowDown) iz -= 1;
+    if (fpState.keys.KeyD || fpState.keys.ArrowRight) ix += 1;
+    if (fpState.keys.KeyA || fpState.keys.ArrowLeft) ix -= 1;
+    const moving = ix !== 0 || iz !== 0;
+    if (moving) {
+      const len = Math.hypot(ix, iz);
+      ix /= len;
+      iz /= len;
+      const sinY = Math.sin(fpState.yaw);
+      const cosY = Math.cos(fpState.yaw);
+      const vx = (-sinY * iz) + (cosY * ix);
+      const vz = (-cosY * iz) - (sinY * ix);
+      const speed = (fpState.keys.ShiftLeft || fpState.keys.ShiftRight) ? 3.4 : 2.0;
+      const step = speed * dt;
+      const nx = fpState.pos.x + vx * step;
+      const nz = fpState.pos.z + vz * step;
+      if (!fpCollides(nx, fpState.pos.z)) fpState.pos.x = nx;
+      if (!fpCollides(fpState.pos.x, nz)) fpState.pos.z = nz;
+      fpState.bobPhase += dt * (speed > 2.5 ? 13 : 9.2);
+    }
+    fpState.bobAmp += ((moving ? 1 : 0) - fpState.bobAmp) * Math.min(1, dt * 9);
+    camera.position.set(
+      fpState.pos.x,
+      FP_EYE + Math.sin(fpState.bobPhase) * 0.012 * fpState.bobAmp,
+      fpState.pos.z
+    );
+    applyFpRotation();
+  }
+
+  document.addEventListener('mousemove', function (e) {
+    if (fpState.phase !== 'free') return;
+    let dx = 0;
+    let dy = 0;
+    if (getPointerLockElement() === renderer.domElement) {
+      dx = e.movementX || 0;
+      dy = e.movementY || 0;
+    } else if (fpState.dragging) {
+      dx = e.clientX - fpState.lastX;
+      dy = e.clientY - fpState.lastY;
+      fpState.lastX = e.clientX;
+      fpState.lastY = e.clientY;
+    }
+    if (!dx && !dy) return;
+    fpState.yaw -= dx * 0.00235;
+    fpState.pitch = clamp(fpState.pitch - dy * 0.00235, -1.28, 1.28);
+    applyFpRotation();
+  });
+
+  renderer.domElement.addEventListener('pointerdown', function (e) {
+    if (fpState.phase === 'free' && getPointerLockElement() !== renderer.domElement) {
+      fpState.dragging = true;
+      fpState.lastX = e.clientX;
+      fpState.lastY = e.clientY;
+    }
+  });
+
+  window.addEventListener('pointerup', function () {
+    fpState.dragging = false;
+  });
+
+  renderer.domElement.addEventListener('click', function () {
+    if (fpState.phase === 'free' && getPointerLockElement() !== renderer.domElement) {
+      requestPointerLockSafe();
+    }
+  });
+
+  renderer.domElement.addEventListener('dblclick', function (e) {
+    if (fpState.phase === 'off') {
+      e.preventDefault();
+      enterFirstPerson(false);
+    }
+  });
+
+  document.addEventListener('pointerlockchange', function () {
+    const locked = getPointerLockElement() === renderer.domElement;
+    if (locked) {
+      fpState.hadLock = true;
+      return;
+    }
+    if (fpState.phase !== 'off' && fpState.hadLock && !fpState.exiting) {
+      exitFirstPerson();
+    }
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.code === 'KeyF' && !e.repeat && !e.ctrlKey && !e.metaKey && !e.altKey) {
+      e.preventDefault();
+      if (fpState.phase === 'off') enterFirstPerson(false);
+      else exitFirstPerson();
+      return;
+    }
+    if (fpState.phase === 'off') return;
+    if (e.code === 'Escape') {
+      exitFirstPerson();
+      return;
+    }
+    if (fpState.phase === 'free') {
+      if (e.code === 'KeyW' || e.code === 'KeyA' || e.code === 'KeyS' || e.code === 'KeyD' ||
+          e.code === 'ArrowUp' || e.code === 'ArrowDown' || e.code === 'ArrowLeft' || e.code === 'ArrowRight' ||
+          e.code === 'ShiftLeft' || e.code === 'ShiftRight') {
+        fpState.keys[e.code] = true;
+        e.preventDefault();
+      }
+    }
+  });
+
+  document.addEventListener('keyup', function (e) {
+    if (fpState.keys[e.code]) {
+      delete fpState.keys[e.code];
+      e.preventDefault();
+    }
+  });
+
   window.addEventListener('keydown', function (e) {
-    if ((e.key === 'r' || e.key === 'R') && !e.ctrlKey && !e.metaKey && !e.altKey && !CUSTOM_CAM) {
+    if ((e.key === 'r' || e.key === 'R') && !e.ctrlKey && !e.metaKey && !e.altKey && !CUSTOM_CAM && fpState.phase === 'off') {
+      doorTarget = 0;
+      doorProgress = 0;
+      updateDoorMeshes();
       intro.elapsed = 0;
       intro.cameraDone = false;
       totalTime = 0;
@@ -3837,7 +4117,13 @@
       intro.elapsed = 999;
     }
     updateAssembly(dt);
-    updateCameraIntro();
+    updateDoors(dt);
+    if (fpState.phase === 'off') {
+      updateCameraIntro();
+      if (controls.enabled) controls.update();
+    } else {
+      updateFirstPerson(dt);
+    }
     updateRainAndRipples(dt, totalTime);
     if (steamSpritesRef) {
       const steamOn = SKIP_INTRO ? 1 : clamp((intro.elapsed - 5.0) / 1.4, 0, 1);
@@ -3850,10 +4136,12 @@
         s.sprite.material.opacity = 0.13 * (1 - t) * steamOn;
       }
     }
-    if (controls.enabled) controls.update();
     renderer.render(scene, camera);
     stillFrames++;
     if (STILL && stillFrames >= 3) document.body.setAttribute('data-rendered', '1');
   }
+
+  if (params.has('fp')) enterFirstPerson(true);
+
   animate();
 })();

@@ -34,7 +34,7 @@ const path = require('path');
     return {
       title: document.title,
       canvas: c ? [c.width, c.height, c.style.width, c.style.height] : null,
-      debug: document.getElementById('debug').textContent,
+      debug: document.getElementById('debug') ? document.getElementById('debug').textContent : '',
       rendered: document.body.getAttribute('data-rendered')
     };
   });
